@@ -1,0 +1,105 @@
+# 🏨 Conseil en Hôtellerie – Macro Processus
+
+Ce document présente les **grands macro-processus d’une mission de conseil en hôtellerie**, depuis la demande client jusqu’à la phase de support continu.  
+L’objectif est d’offrir une **vision claire, modulaire et séquencée** du cycle d’intervention typique d’un cabinet de conseil spécialisé dans l’hôtellerie.
+
+---
+
+## 1. Vue d’ensemble des macro-processus
+
+```mermaid
+flowchart TD
+  %% ====== STYLES ======
+  classDef proc fill:#eef,stroke:#88a,stroke-width:1px,color:#111;
+  classDef decision fill:#f6f6ff,stroke:#88a,stroke-dasharray: 3 2,color:#111;
+  classDef db fill:#efe,stroke:#7a7,stroke-width:1px,color:#111;
+  classDef deliver fill:#e9f5ff,stroke:#66a,stroke-width:1px,color:#111;
+  classDef alert fill:#fee,stroke:#c88,stroke-width:1px,color:#111;
+  classDef ext fill:#fff4db,stroke:#bb9,stroke-width:1px,color:#111;
+
+  %% ====== TRIGGER / AVANT-VENTE ======
+  A["Demande client / RFI"]:::ext --> B["Qualification & cadrage rapide\n(scope, jalons, budget cible)"]:::proc
+  B --> C{"Go / No-Go ?"}:::decision
+  C -- "No-Go" --> X["Sortie / recommandation partenaire"]:::alert
+  C -- "Go" --> D["Proposition & contrat\n(TJM, livrables, planning)"]:::deliver
+  D --> E["Kick-off avec direction & chefs de département"]:::proc
+
+  %% ====== PHASE 1 : DIAGNOSTIC ======
+  subgraph P1["Phase 1 — Diagnostic 360°"]
+    direction TB
+    E --> F["Collecte data & accès systèmes\nPMS, POS, Channel Manager, OTA, CRM, RH, Finance"]:::db
+    F --> G["Entretiens & visites terrain\nFO, HK, F&B, Sales, Maintenance"]:::proc
+    G --> H["Mystery guest / audit expérience client"]:::proc
+    H --> I["Benchmark marché & concurrence\n(revPAR, ADR, OCR, mix canaux)"]:::proc
+    I --> J["Contrôle qualité des données\n(dictionnaire, fraîcheur, complétude)"]:::proc
+    J --> K["Diagnostic & quick wins 30 jours"]:::deliver
+  end
+
+  %% ====== PHASE 2 : STRATÉGIE ======
+  subgraph P2["Phase 2 — Stratégie & Business case"]
+    direction TB
+    K --> L["Objectifs chiffrés & KPI\n(RevPAR, GOPPAR, NPS, temps ménage, coût HR/room)"]:::proc
+    L --> M["Design des leviers & hypothèses\n(revenue, ops, CX, digital, data, compliance)"]:::proc
+    M --> N["Business case & priorisation (ICE / ROI)\nRoadmap 90-180 jours"]:::deliver
+    N --> O{"Validation COMEX / Propriétaire ?"}:::decision
+  end
+  O -- "Ajuster" --> M
+  O -- "OK" --> P
+
+  %% ====== PHASE 3 : DELIVERY PAR WORKSTREAMS ======
+  subgraph P3["Phase 3 — Mise en œuvre (workstreams)"]
+    direction TB
+    P["PMO & gouvernance\n(cercles hebdo, risques, décisions)"]:::proc
+
+    subgraph W1["WS1 Revenue Management & Distribution"]
+      direction TB
+      W1a["Segmentation tarifaire & fences"]:::proc --> W1b["Politique prix BAR / LOS / packages"]:::proc --> W1c["Optimisation mix canaux & parité"]:::proc
+    end
+
+    subgraph W2["WS2 Opérations & Productivité"]
+      direction TB
+      W2a["SOP housekeeping & turn-over"]:::proc --> W2b["Planification RH & shifts"]:::proc --> W2c["Maintenance préventive"]:::proc
+    end
+
+    subgraph W3["WS3 Expérience client & CRM"]
+      direction TB
+      W3a["Parcours on-site & digital check-in"]:::proc --> W3b["Upsell croisé (F&B, spa, late checkout)"]:::proc --> W3c["Programme fidélité & emails"]:::proc
+    end
+
+    subgraph W4["WS4 Digital & Marketing"]
+      direction TB
+      W4a["SEO/SEA, Meta, OTA profile hygiene"]:::proc --> W4b["Contenus & UGC, e-réputation"]:::proc
+    end
+
+    subgraph W5["WS5 Finance, Data & Compliance"]
+      direction TB
+      W5a["Tableau de bord unifié (PMS/POS/Finance)"]:::db --> W5b["Qualité des données & dictionnaire"]:::proc --> W5c["Conformité (RGPD, sécurité paiements)"]:::proc
+    end
+
+    P --> W1a
+    P --> W2a
+    P --> W3a
+    P --> W4a
+    P --> W5a
+  end
+
+  %% ====== PHASE 4 : MESURE & AMÉLIORATION ======
+  subgraph P4["Phase 4 — Mesure & amélioration continue"]
+    direction TB
+    Q["Mesure KPI & revue hebdo\n(variance vs target, alerting)"]:::db --> R{"Cibles atteintes ?"}:::decision
+    R -- "Non" --> S["A/B tests & ajustements leviers"]:::proc --> Q
+    R -- "Oui" --> T["Capitalisation & standardisation SOP"]:::deliver
+  end
+
+  %% ====== PHASE 5 : TRANSFERT & SUPPORT ======
+  subgraph P5["Phase 5 — Transfert & support"]
+    direction TB
+    T --> U["Formation équipes & playbooks"]:::deliver
+    U --> V["Handover & plan 90 jours"]:::deliver
+    V --> W{"Besoin d'AM / support continu ?"}:::decision
+    W -- "Oui" --> Y["Contrat d'Assistance/AM (cadence mensuelle)"]:::proc --> Q
+    W -- "Non" --> Z["Clôture de mission & bilan final"]:::deliver
+  end
+
+  %% ====== INCIDENTS / RISQUES ======
+  P -.->| "Risque majeur" | R1["Comité risques / arbitrage"]:::alert -.-> P
