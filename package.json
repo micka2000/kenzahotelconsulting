@@ -1,0 +1,13 @@
+{
+  "name": "kenzahotelconsulting",
+  "version": "1.0.0",
+  "description": "Full stack site showcasing hotels in Toronto",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["hotel", "toronto", "consulting", "full-stack"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
