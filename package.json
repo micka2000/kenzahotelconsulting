@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["hotel", "toronto", "consulting", "full-stack"],
+  "keywords": [
+    "hotel",
+    "toronto",
+    "consulting",
+    "full-stack"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
