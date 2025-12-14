@@ -9,5 +9,7 @@
   "keywords": ["hotel", "toronto", "consulting", "full-stack"],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
 }

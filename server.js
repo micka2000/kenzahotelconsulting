@@ -2,9 +2,27 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const sqlite3 = require('sqlite3').verbose();
 
 const PORT = process.env.PORT || 3000;
 const publicDir = path.join(__dirname, 'public');
+const dbPath = path.join(__dirname, 'kenzah.db');
+
+const db = new sqlite3.Database(dbPath);
+
+db.serialize(() => {
+  db.run(
+    `CREATE TABLE IF NOT EXISTS contacts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT DEFAULT CURRENT_TIMESTAMP,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        phone TEXT,
+        company TEXT,
+        message TEXT
+      )`
+  );
+});
 
 const hotels = [
   {
@@ -120,6 +138,26 @@ function filterHotels(query) {
   return filtered;
 }
 
+function parseBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      try {
+        const data = body ? JSON.parse(body) : {};
+        resolve(data);
+      } catch (err) {
+        reject(err);
+      }
+    });
+
+    req.on('error', reject);
+  });
+}
+
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
 
@@ -137,6 +175,35 @@ const server = http.createServer((req, res) => {
     }
 
     return sendJson(res, hotel);
+  }
+
+  if (parsedUrl.pathname === '/api/contact' && req.method === 'POST') {
+    return parseBody(req)
+      .then((data) => {
+        const name = data.name && String(data.name).trim();
+        const email = data.email && String(data.email).trim();
+        const phone = data.phone ? String(data.phone).trim() : null;
+        const company = data.company ? String(data.company).trim() : null;
+        const message = data.message ? String(data.message).trim() : null;
+
+        if (!name || !email) {
+          return sendJson(res, { message: 'Nom et email obligatoires' }, 400);
+        }
+
+        db.run(
+          `INSERT INTO contacts (name, email, phone, company, message) VALUES (?, ?, ?, ?, ?)`,
+          [name, email, phone, company, message],
+          function (err) {
+            if (err) {
+              console.error('Erreur lors de l\'insertion du contact :', err);
+              return sendJson(res, { message: 'Erreur serveur' }, 500);
+            }
+
+            return sendJson(res, { id: this.lastID, message: 'Contact enregistré' }, 201);
+          }
+        );
+      })
+      .catch(() => sendJson(res, { message: 'Données invalides' }, 400));
   }
 
   return serveStatic(res, parsedUrl.pathname);
