@@ -91,7 +91,30 @@
               Planifions une session de 45 minutes pour cartographier vos enjeux, du revenue management
               aux parcours digitaux.
             </p>
-            <a class="btn" href="mailto:contact@kenzahconsulting.com">Écrire à l’équipe</a>
+            <form id="contact-form" class="form">
+              <label>
+                Nom
+                <input type="text" name="name" placeholder="Votre nom" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="vous@entreprise.com" required />
+              </label>
+              <label>
+                Téléphone
+                <input type="tel" name="phone" placeholder="+1 647..." />
+              </label>
+              <label>
+                Entreprise
+                <input type="text" name="company" placeholder="Nom de l'entreprise" />
+              </label>
+              <label>
+                Projet
+                <textarea name="message" rows="3" placeholder="Vos enjeux, dates, budget..."></textarea>
+              </label>
+              <button type="submit" class="btn">Envoyer</button>
+              <p id="contact-message" class="form__feedback" aria-live="polite"></p>
+            </form>
           </div>
         </div>
       </section>

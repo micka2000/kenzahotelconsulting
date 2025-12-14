@@ -3,6 +3,8 @@ const template = document.getElementById('hotel-card-template');
 const form = document.getElementById('filter-form');
 const resetBtn = document.getElementById('reset');
 const resultsCount = document.getElementById('results-count');
+const contactForm = document.getElementById('contact-form');
+const contactMessage = document.getElementById('contact-message');
 
 const imageMap = {
   'lakeview.jpg':
@@ -68,6 +70,44 @@ function updateCount(count) {
   resultsCount.textContent = `${count} hôtel${count > 1 ? 's' : ''}`;
 }
 
+function setContactMessage(type, message) {
+  if (!contactMessage) return;
+  contactMessage.textContent = message;
+  contactMessage.dataset.type = type;
+}
+
+async function submitContact(event) {
+  event.preventDefault();
+  if (!contactForm) return;
+
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  if (submitBtn) submitBtn.disabled = true;
+  setContactMessage('info', 'Envoi en cours...');
+
+  const formData = new FormData(contactForm);
+  const payload = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(error.message || 'Erreur lors de l\'envoi');
+    }
+
+    contactForm.reset();
+    setContactMessage('success', 'Merci ! Votre demande a été envoyée.');
+  } catch (err) {
+    setContactMessage('error', err.message || 'Impossible d\'envoyer le formulaire');
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+  }
+}
+
 async function refreshHotels(event) {
   if (event) event.preventDefault();
   grid.innerHTML = '';
@@ -90,3 +130,7 @@ resetBtn.addEventListener('click', () => {
 });
 
 refreshHotels();
+
+if (contactForm) {
+  contactForm.addEventListener('submit', submitContact);
+}
