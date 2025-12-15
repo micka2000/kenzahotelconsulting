@@ -358,7 +358,7 @@ h3 {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 10px 12px;
   margin-bottom: 10px;
 }
@@ -417,17 +417,17 @@ input[type="tel"]:focus {
 }
 
 .iti {
-  display: flex;
-  flex: 0 0 90px;
-  max-width: 120px;
-}
-
-.iti input[type="tel"] {
-  display: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: stretch;
+  gap: 12px;
 }
 
 .iti__flag-container {
   position: relative;
+  top: auto;
+  left: auto;
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -462,12 +462,7 @@ input[type="tel"]:focus {
   border-radius: 0;
 }
 
-.phone-input-box {
-  flex: 1;
-  display: flex;
-}
-
-.phone-input-box input[type="tel"] {
+.iti__tel-input {
   width: 100%;
   padding: 12px 12px;
   background: #fff;
@@ -479,7 +474,7 @@ input[type="tel"]:focus {
   height: 44px;
 }
 
-.phone-input-box input[type="tel"]:focus {
+.iti__tel-input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 10px 24px rgba(212, 175, 55, 0.15);
