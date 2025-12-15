@@ -1,163 +1,88 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hôtels à Toronto | Kenzah</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <header class="hero">
-      <div class="hero__overlay"></div>
-      <div class="hero__content">
-        <p class="eyebrow">Conseil &amp; sélection premium</p>
-        <h1>Les meilleurs hôtels à Toronto</h1>
-        <p class="lede">
-          Découvrez une sélection éditorialisée d'adresses à proximité de la Tour CN,
-          du Distillery District et du quartier des spectacles.
-        </p>
-        <div class="hero__cta">
-          <a class="btn" href="#hotels">Découvrir les hôtels</a>
-          <a class="btn btn--ghost" href="#approche">Notre approche</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison MK — Silence & Luxe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+
+  <header class="hero" id="top">
+    <div class="shell">
+      <p class="eyebrow">Maison MK</p>
+      <h1>Élevez votre établissement au rang d'Institution</h1>
+      <p class="lede">Audit & Conseil Vision Michelin</p>
+      <div class="hero-cta">
+        <a class="ghost" href="#lead">Découvrir la méthode</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="pillars" aria-labelledby="pillars-title">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Les 6 Piliers</p>
+          <h2 id="pillars-title">Notre grille d'excellence</h2>
+          <p class="muted">Chaque pilier est audité, mesuré et orchestré pour délivrer une signature intemporelle.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Ancrage</h3>
+            <p>Un récit ancré dans le lieu, exprimé avec justesse et retenue.</p>
+          </article>
+          <article class="card">
+            <h3>Esthétique</h3>
+            <p>Volumes, lumières, textures : un équilibre sans ostentation.</p>
+          </article>
+          <article class="card">
+            <h3>Savoir-Être</h3>
+            <p>Une chorégraphie humaine qui précède les attentes, jamais l'effet.</p>
+          </article>
+          <article class="card">
+            <h3>Signature Culinaire</h3>
+            <p>Une narration gustative cohérente, du lever au dernier verre.</p>
+          </article>
+          <article class="card">
+            <h3>Fluidité Service</h3>
+            <p>Des parcours invités orchestrés, sans friction ni répétition.</p>
+          </article>
+          <article class="card">
+            <h3>Aura Sonore</h3>
+            <p>Une acoustique et une bande-son qui sculptent le silence habité.</p>
+          </article>
         </div>
       </div>
-    </header>
+    </section>
 
-    <main class="layout">
-      <section class="panel" id="filters">
-        <div>
-          <p class="eyebrow">Filtrer votre recherche</p>
-          <h2>Affinez par quartier, budget ou standing</h2>
+    <section class="lead" id="lead" aria-labelledby="lead-title">
+      <div class="shell lead-shell">
+        <div class="lead-copy">
+          <p class="eyebrow">Checklist Officielle</p>
+          <h2 id="lead-title">Téléchargez la checklist maison</h2>
+          <p class="muted">Recevez la matrice des 6 piliers pour aligner votre établissement sur le standard Maison MK.</p>
         </div>
-        <form class="filters" id="filter-form">
-          <label>
-            Quartier
-            <input type="text" name="neighborhood" placeholder="Harbourfront, Yorkville, Distillery..." />
-          </label>
-          <label>
-            Note minimale
-            <input type="number" step="0.1" min="3" max="5" name="minRating" placeholder="4.5" />
-          </label>
-          <label>
-            Trier par
-            <select name="sort">
-              <option value="">Pertinence</option>
-              <option value="rating">Meilleure note</option>
-              <option value="price">Tarif le plus bas</option>
-            </select>
-          </label>
-          <button type="submit" class="btn">Appliquer</button>
-          <button type="button" id="reset" class="btn btn--ghost">Réinitialiser</button>
+        <form class="lead-form" novalidate>
+          <label for="email">Email professionnel</label>
+          <div class="input-row">
+            <input id="email" name="email" type="email" placeholder="nom@domaine.com" required autocomplete="email">
+            <button type="submit">Recevoir</button>
+          </div>
+          <p class="form-hint muted">Nous n'envoyons ni spam ni séquences automatiques. Un seul envoi, signature MK.</p>
+          <div class="form-message" role="status" aria-live="polite"></div>
         </form>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section id="hotels" class="panel">
-        <div class="panel__header">
-          <div>
-            <p class="eyebrow">Sélection Toronto</p>
-            <h2>Hôtels recommandés</h2>
-            <p class="lede">Une collection équilibrée pour voyages loisirs ou affaires.</p>
-          </div>
-          <div class="badge" id="results-count">0 hôtels</div>
-        </div>
-        <div id="hotel-grid" class="grid"></div>
-      </section>
+  <footer class="footer">
+    <div class="shell">
+      <p>Maison MK © 2025. L'Excellence en Signature.</p>
+    </div>
+  </footer>
 
-            <section class="panel contact-panel" id="approche">
-        <div class="panel__split contact-layout">
-          <div>
-            <p class="eyebrow">Kenzah Consulting</p>
-            <h2>Accompagnement cl&eacute;-en-main</h2>
-            <p class="lede">
-              Nous analysons la performance, l&rsquo;exp&eacute;rience client et la distribution pour guider les
-              investisseurs et directions d&rsquo;h&ocirc;tel dans leurs d&eacute;cisions &agrave; Toronto.
-            </p>
-            <ul class="list">
-              <li>Audit 360&deg; (revPAR, mix canaux, exp&eacute;rience client)</li>
-              <li>Sc&eacute;narios d&rsquo;investissement et repositionnement</li>
-              <li>Signature d&rsquo;exp&eacute;rience &amp; activation digitale</li>
-            </ul>
-          </div>
-          <div class="card contact-card">
-            <div class="contact-header">
-              <p class="eyebrow">Contact</p>
-              <h3>Organiser un workshop</h3>
-              <p class="contact-lede">
-                Planifions une session de 45 minutes pour cartographier vos enjeux, du revenue management
-                aux parcours digitaux.
-              </p>
-            </div>
-            <form id="contact-form" class="form form--contact">
-              <div class="form-grid">
-                <label>
-                  Nom
-                  <input type="text" name="name" placeholder="Votre nom" required />
-                </label>
-                <label>
-                  Email
-                  <input type="email" name="email" placeholder="vous@entreprise.com" />
-                </label>
-                <label class="phone-field">
-                  T&eacute;l&eacute;phone
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    placeholder="647 123 4567"
-                    inputmode="tel"
-                    autocomplete="tel"
-                  />
-                </label>
-                <label>
-                  Entreprise
-                  <input type="text" name="company" placeholder="Nom de l'entreprise" required />
-                </label>
-                <label>
-                  Projet
-                  <textarea name="message" rows="3" placeholder="Vos enjeux, dates, budget..."></textarea>
-                </label>
-              </div>
-              <p class="form__hint">Email ou t&eacute;l&eacute;phone requis. L&rsquo;entreprise doit &ecirc;tre renseign&eacute;e.</p>
-              <button type="submit" class="btn contact-submit">Envoyer</button>
-              <p id="contact-message" class="form__feedback" aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <template id="hotel-card-template">
-      <article class="card hotel">
-        <div class="hotel__image"></div>
-        <div class="hotel__body">
-          <div class="hotel__title">
-            <h3></h3>
-            <span class="badge badge--ghost"></span>
-          </div>
-          <p class="hotel__description"></p>
-          <div class="hotel__meta">
-            <span class="pill"></span>
-            <span class="pill pill--rating"></span>
-            <span class="pill pill--price"></span>
-          </div>
-          <div class="hotel__amenities"></div>
-          <a class="btn btn--ghost" target="_blank" rel="noreferrer">Voir le quartier</a>
-        </div>
-      </article>
-    </template>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
-    <script src="/app.js"></script>
-  </body>
+  <script src="app.js" type="module"></script>
+</body>
 </html>
