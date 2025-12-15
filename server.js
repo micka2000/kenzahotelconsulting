@@ -10,19 +10,65 @@ const dbPath = path.join(__dirname, 'kenzah.db');
 
 const db = new sqlite3.Database(dbPath);
 
-db.serialize(() => {
-  db.run(
-    `CREATE TABLE IF NOT EXISTS contacts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date TEXT DEFAULT CURRENT_TIMESTAMP,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        company TEXT,
-        message TEXT
-      )`
-  );
-});
+const contactTableSql = `CREATE TABLE IF NOT EXISTS contacts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  date TEXT DEFAULT CURRENT_TIMESTAMP,
+  name TEXT NOT NULL,
+  email TEXT,
+  phone TEXT,
+  company TEXT NOT NULL,
+  message TEXT,
+  CHECK(email IS NOT NULL OR phone IS NOT NULL)
+)`;
+
+function ensureContactsTable() {
+  db.serialize(() => {
+    db.run(contactTableSql, (err) => {
+      if (err) {
+        console.error('Erreur lors de la création de la table contacts :', err);
+      }
+    });
+
+    db.all(`PRAGMA table_info(contacts)`, (err, columns) => {
+      if (err || !Array.isArray(columns) || columns.length === 0) return;
+
+      const emailCol = columns.find((col) => col.name === 'email');
+      const companyCol = columns.find((col) => col.name === 'company');
+      const needsMigration = (emailCol && emailCol.notnull === 1) || (companyCol && companyCol.notnull !== 1);
+
+      if (!needsMigration) return;
+
+      db.run('ALTER TABLE contacts RENAME TO contacts_old', (renameErr) => {
+        if (renameErr) {
+          console.error('Erreur lors du renommage de la table contacts :', renameErr);
+          return;
+        }
+
+        db.run(contactTableSql, (createErr) => {
+          if (createErr) {
+            console.error('Erreur lors de la recréation de la table contacts :', createErr);
+            return;
+          }
+
+          db.run(
+            `INSERT INTO contacts (id, date, name, email, phone, company, message)
+             SELECT id, date, name, email, phone, COALESCE(company, 'Non renseigné'), message FROM contacts_old`,
+            (copyErr) => {
+              if (copyErr) {
+                console.error('Erreur lors de la copie des contacts :', copyErr);
+                return;
+              }
+
+              db.run('DROP TABLE contacts_old');
+            }
+          );
+        });
+      });
+    });
+  });
+}
+
+ensureContactsTable();
 
 const hotels = [
   {
@@ -181,18 +227,29 @@ const server = http.createServer((req, res) => {
     return parseBody(req)
       .then((data) => {
         const name = data.name && String(data.name).trim();
-        const email = data.email && String(data.email).trim();
-        const phone = data.phone ? String(data.phone).trim() : null;
-        const company = data.company ? String(data.company).trim() : null;
+        const email = data.email ? String(data.email).trim() : '';
+        const phoneNumber = data.phoneNumber ? String(data.phoneNumber).trim() : '';
+        const phonePrefix = data.phonePrefix ? String(data.phonePrefix).trim() : '';
+        const rawPhone = data.phone ? String(data.phone).trim() : '';
+        const phone = rawPhone || `${phonePrefix} ${phoneNumber}`.trim();
+        const company = data.company ? String(data.company).trim() : '';
         const message = data.message ? String(data.message).trim() : null;
 
-        if (!name || !email) {
-          return sendJson(res, { message: 'Nom et email obligatoires' }, 400);
+        if (!name) {
+          return sendJson(res, { message: 'Nom obligatoire' }, 400);
+        }
+
+        if (!email && !phone) {
+          return sendJson(res, { message: 'Email ou téléphone obligatoire' }, 400);
+        }
+
+        if (!company) {
+          return sendJson(res, { message: 'Entreprise obligatoire' }, 400);
         }
 
         db.run(
           `INSERT INTO contacts (name, email, phone, company, message) VALUES (?, ?, ?, ?, ?)`,
-          [name, email, phone, company, message],
+          [name, email || null, phone || null, company, message],
           function (err) {
             if (err) {
               console.error('Erreur lors de l\'insertion du contact :', err);

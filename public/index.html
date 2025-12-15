@@ -69,50 +69,62 @@
         <div id="hotel-grid" class="grid"></div>
       </section>
 
-      <section class="panel" id="approche">
-        <div class="panel__split">
+            <section class="panel contact-panel" id="approche">
+        <div class="panel__split contact-layout">
           <div>
             <p class="eyebrow">Kenzah Consulting</p>
-            <h2>Accompagnement clé-en-main</h2>
+            <h2>Accompagnement cl&eacute;-en-main</h2>
             <p class="lede">
-              Nous analysons la performance, l’expérience client et la distribution pour guider les
-              investisseurs et directions d’hôtel dans leurs décisions à Toronto.
+              Nous analysons la performance, l&rsquo;exp&eacute;rience client et la distribution pour guider les
+              investisseurs et directions d&rsquo;h&ocirc;tel dans leurs d&eacute;cisions &agrave; Toronto.
             </p>
             <ul class="list">
-              <li>Audit 360° (revPAR, mix canaux, expérience client)</li>
-              <li>Scénarios d’investissement et repositionnement</li>
-              <li>Signature d’expérience &amp; activation digitale</li>
+              <li>Audit 360&deg; (revPAR, mix canaux, exp&eacute;rience client)</li>
+              <li>Sc&eacute;narios d&rsquo;investissement et repositionnement</li>
+              <li>Signature d&rsquo;exp&eacute;rience &amp; activation digitale</li>
             </ul>
           </div>
-          <div class="card">
-            <p class="eyebrow">Contact</p>
-            <h3>Organiser un workshop</h3>
-            <p>
-              Planifions une session de 45 minutes pour cartographier vos enjeux, du revenue management
-              aux parcours digitaux.
-            </p>
-            <form id="contact-form" class="form">
-              <label>
-                Nom
-                <input type="text" name="name" placeholder="Votre nom" required />
-              </label>
-              <label>
-                Email
-                <input type="email" name="email" placeholder="vous@entreprise.com" required />
-              </label>
-              <label>
-                Téléphone
-                <input type="tel" name="phone" placeholder="+1 647..." />
-              </label>
-              <label>
-                Entreprise
-                <input type="text" name="company" placeholder="Nom de l'entreprise" />
-              </label>
-              <label>
-                Projet
-                <textarea name="message" rows="3" placeholder="Vos enjeux, dates, budget..."></textarea>
-              </label>
-              <button type="submit" class="btn">Envoyer</button>
+          <div class="card contact-card">
+            <div class="contact-header">
+              <p class="eyebrow">Contact</p>
+              <h3>Organiser un workshop</h3>
+              <p class="contact-lede">
+                Planifions une session de 45 minutes pour cartographier vos enjeux, du revenue management
+                aux parcours digitaux.
+              </p>
+            </div>
+            <form id="contact-form" class="form form--contact">
+              <div class="form-grid">
+                <label>
+                  Nom
+                  <input type="text" name="name" placeholder="Votre nom" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" placeholder="vous@entreprise.com" />
+                </label>
+                <label class="phone-field">
+                  T&eacute;l&eacute;phone
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    placeholder="647 123 4567"
+                    inputmode="tel"
+                    autocomplete="tel"
+                  />
+                </label>
+                <label>
+                  Entreprise
+                  <input type="text" name="company" placeholder="Nom de l'entreprise" required />
+                </label>
+                <label>
+                  Projet
+                  <textarea name="message" rows="3" placeholder="Vos enjeux, dates, budget..."></textarea>
+                </label>
+              </div>
+              <p class="form__hint">Email ou t&eacute;l&eacute;phone requis. L&rsquo;entreprise doit &ecirc;tre renseign&eacute;e.</p>
+              <button type="submit" class="btn contact-submit">Envoyer</button>
               <p id="contact-message" class="form__feedback" aria-live="polite"></p>
             </form>
           </div>
@@ -140,6 +152,12 @@
       </article>
     </template>
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
     <script src="/app.js"></script>
   </body>
 </html>

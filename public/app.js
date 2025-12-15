@@ -5,6 +5,8 @@ const resetBtn = document.getElementById('reset');
 const resultsCount = document.getElementById('results-count');
 const contactForm = document.getElementById('contact-form');
 const contactMessage = document.getElementById('contact-message');
+const phoneInput = document.getElementById('phone');
+let iti;
 
 const imageMap = {
   'lakeview.jpg':
@@ -81,11 +83,36 @@ async function submitContact(event) {
   if (!contactForm) return;
 
   const submitBtn = contactForm.querySelector('button[type="submit"]');
-  if (submitBtn) submitBtn.disabled = true;
-  setContactMessage('info', 'Envoi en cours...');
-
   const formData = new FormData(contactForm);
   const payload = Object.fromEntries(formData.entries());
+  const name = (payload.name || '').trim();
+  const email = (payload.email || '').trim();
+  const company = (payload.company || '').trim();
+  const phone = iti ? iti.getNumber() : (payload.phone || '').trim();
+
+  if (!name) {
+    setContactMessage('error', 'Merci d’indiquer votre nom.');
+    return;
+  }
+
+  if (!email && !phone) {
+    setContactMessage('error', 'Renseignez au moins un email ou un téléphone.');
+    return;
+  }
+
+  if (!company) {
+    setContactMessage('error', 'Merci de renseigner votre entreprise.');
+    return;
+  }
+
+  payload.name = name;
+  payload.email = email || null;
+  payload.phone = phone || null;
+  payload.company = company;
+  payload.message = (payload.message || '').trim();
+
+  if (submitBtn) submitBtn.disabled = true;
+  setContactMessage('info', 'Envoi en cours...');
 
   try {
     const response = await fetch('/api/contact', {
@@ -132,5 +159,22 @@ resetBtn.addEventListener('click', () => {
 refreshHotels();
 
 if (contactForm) {
-  contactForm.addEventListener('submit', submitContact);
+  if (phoneInput && window.intlTelInput) {
+    iti = window.intlTelInput(phoneInput, {
+      preferredCountries: ['ca', 'fr', 'be', 'uk'],
+      initialCountry: 'ca',
+      separateDialCode: false,
+      autoPlaceholder: 'polite',
+      nationalMode: false
+    });
+  }
+
+  contactForm.addEventListener('submit', (event) => {
+    if (iti && phoneInput.value.trim() && !iti.isValidNumber()) {
+      event.preventDefault();
+      setContactMessage('error', 'Numéro de téléphone invalide pour ce pays.');
+      return;
+    }
+    submitContact(event);
+  });
 }
