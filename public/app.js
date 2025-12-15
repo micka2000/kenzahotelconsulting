@@ -3,6 +3,14 @@ const emailInput = form?.querySelector("#email");
 const messageBox = form?.querySelector(".form-message");
 const submitButton = form?.querySelector('button[type="submit"]');
 
+const SUPABASE_URL = "VOTRE_URL";
+const SUPABASE_KEY = "VOTRE_KEY";
+
+let supabaseClient = null;
+if (window.supabase && SUPABASE_URL !== "VOTRE_URL" && SUPABASE_KEY !== "VOTRE_KEY") {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
+
 const setMessage = (text, type = "") => {
   if (!messageBox) return;
   messageBox.textContent = text;
@@ -22,24 +30,27 @@ const handleSubmit = async (event) => {
     return;
   }
 
+  if (!supabaseClient) {
+    setMessage("Configuration Supabase manquante. Ajoutez vos clés.", "error");
+    return;
+  }
+
   submitButton.disabled = true;
   setMessage("Transmission en cours…");
 
   try {
-    const response = await fetch("/api/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    const { error } = await supabaseClient.from("prospects").insert({ email });
 
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({}));
-      const reason = detail?.message || "Service momentanément indisponible.";
-      throw new Error(reason);
+    if (error) {
+      if (error.code === "23505") {
+        setMessage("Cet email est déjà inscrit. Merci !", "success");
+      } else {
+        throw error;
+      }
+    } else {
+      setMessage("Checklist envoyée. Vérifiez votre boîte mail.", "success");
+      form.reset();
     }
-
-    setMessage("Checklist envoyée. Vérifiez votre boîte mail.", "success");
-    form.reset();
   } catch (err) {
     setMessage(err.message || "Une erreur est survenue.", "error");
   } finally {
