@@ -1,3 +1,8 @@
+/* ================================================================
+   MAISON MK — Application
+   Vanilla JS. Invisible logic. 60fps.
+   ================================================================ */
+
 const form = document.querySelector(".lead-form");
 const emailInput = form?.querySelector("#email");
 const messageBox = form?.querySelector(".form-message");
@@ -15,86 +20,109 @@ if (window.supabase && SUPABASE_URL !== "VOTRE_URL" && SUPABASE_KEY !== "VOTRE_K
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 }
 
+/* ----------------------------------------------------------------
+   SCROLL REVEAL (IntersectionObserver)
+   ---------------------------------------------------------------- */
+
+const initReveals = () => {
+  const els = document.querySelectorAll("[data-reveal]");
+  if (!els.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  els.forEach((el) => observer.observe(el));
+};
+
+/* ----------------------------------------------------------------
+   TRANSLATIONS
+   ---------------------------------------------------------------- */
+
 const translations = {
   fr: {
-    topbar: { label: "Langue", optionFr: "Français", optionEn: "English" },
+    topbar: { optionFr: "FR", optionEn: "EN" },
     eyebrow: "Maison MK",
+    nav: { manifesto: "Manifeste", pillars: "Piliers", contact: "Contact" },
     hero: {
+      eyebrow: "Audit & Conseil Vision Michelin",
       title: "Élevez votre établissement au rang d'Institution",
-      subtitle: "Audit & Conseil Vision Michelin",
+      subtitle:
+        "Nous auditons et sculptons l'expérience des hôtels indépendants pour qu'ils atteignent les standards internationaux les plus élevés.",
       cta: "Découvrir la méthode",
     },
     manifesto: {
-      overline: "#manifeste",
-      heading: '🐺 Le "Manifeste de l\'Exigence" (QQOQCCP Maison MK)',
-      intro: "Un pacte pour les dirigeants qui visent la perfection absolue. Chaque principe est une lame de précision.",
+      overline: "Le Manifeste",
+      heading: "Le Manifeste de l'Exigence",
+      intro:
+        "Un pacte pour les dirigeants qui visent la perfection absolue. Chaque principe est une lame de précision.",
       items: [
         {
-          tag: "1. QUI",
+          tag: "QUI",
           title: "La Cible d'Élite",
           subtitle: "Pour les propriétaires et directeurs qui visent la perfection absolue.",
-          body:
-            'Ce n\'est pas pour l\'hôtelier moyen. Nous nous adressons exclusivement à ceux qui savent que "bien" est l\'ennemi de "l\'exceptionnel". Si vous cherchez juste à remplir vos chambres, passez votre chemin. Si vous cherchez la gloire du sans-faute, on parle.',
+          body: 'Ce n\'est pas pour l\'hôtelier moyen. Nous nous adressons exclusivement à ceux qui savent que "bien" est l\'ennemi de "l\'exceptionnel". Si vous cherchez juste à remplir vos chambres, passez votre chemin. Si vous cherchez la gloire du sans-faute, on parle.',
         },
         {
-          tag: "2. QUOI",
+          tag: "QUOI",
           title: "L'Arme Absolue",
           subtitle: "Mise à niveau chirurgicale basée sur notre grille 6 Piliers, 3 Règles d'Or.",
-          body:
-            'Nous ne vendons pas du "conseil", nous vendons une Mise à Niveau Chirurgicale. On ne vous dit pas ce que vous voulez entendre, on vous révèle l\'écart exact entre votre état actuel et le sommet de la montagne.',
+          body: 'Nous ne vendons pas du "conseil", nous vendons une Mise à Niveau Chirurgicale. On ne vous dit pas ce que vous voulez entendre, on vous révèle l\'écart exact entre votre état actuel et le sommet de la montagne.',
         },
         {
-          tag: "3. OÙ",
+          tag: "OÙ",
           title: "Dans l'invisible qui compte",
           subtitle: "Le luxe se joue dans les gestes imperceptibles.",
-          body: `
-            <ul>
-              <li><strong>Call Service :</strong> décrochez avant la 3e sonnerie avec le sourire dans la voix.</li>
-              <li><strong>Rituel du Lit :</strong> tiré au cordeau, une invitation irrésistible au sommeil absolu.</li>
-              <li><strong>Intimité (Douche) :</strong> pression parfaite, produits alignés au millimètre.</li>
-              <li><strong>Touche Fantôme :</strong> chocolat, mot manuscrit, eau fraîche qui attend. L'intention précède le besoin.</li>
-            </ul>
-          `,
+          body: `<ul>
+            <li><strong>Call Service :</strong> décrochez avant la 3e sonnerie avec le sourire dans la voix.</li>
+            <li><strong>Rituel du Lit :</strong> tiré au cordeau, une invitation irrésistible au sommeil absolu.</li>
+            <li><strong>Intimité (Douche) :</strong> pression parfaite, produits alignés au millimètre.</li>
+            <li><strong>Touche Fantôme :</strong> chocolat, mot manuscrit, eau fraîche qui attend. L'intention précède le besoin.</li>
+          </ul>`,
         },
         {
-          tag: "4. QUAND",
-          title: "Maintenant (The Gap)",
+          tag: "QUAND",
+          title: "Maintenant",
           subtitle: "Chaque jour avec un standard approximatif ancre de mauvaises habitudes.",
-          body:
-            "L'excellence n'attend pas. Vous êtes soit en train de monter en gamme, soit en train de glisser vers la banalité. Mickaël et son équipe ne prennent que des projets où l'ambition est réelle. Est-ce le cas aujourd'hui ?",
+          body: "L'excellence n'attend pas. Vous êtes soit en train de monter en gamme, soit en train de glisser vers la banalité. Mickaël et son équipe ne prennent que des projets où l'ambition est réelle. Est-ce le cas aujourd'hui ?",
         },
         {
-          tag: "5. COMMENT",
-          title: 'La Méthode "Incognito"',
+          tag: "COMMENT",
+          title: "La Méthode Incognito",
           subtitle: "Infiltration silencieuse, dissection, révélation.",
-          body: `
-            <ul>
-              <li><strong>Infiltration :</strong> nous venons comme des clients lambda pour vivre l'expérience réelle.</li>
-              <li><strong>Dissection :</strong> chaque interaction est comparée à notre Algorithme d'Excellence.</li>
-              <li><strong>Révélation :</strong> un rapport qui transforme votre vision de votre propre hôtel.</li>
-            </ul>
-          `,
+          body: `<ul>
+            <li><strong>Infiltration :</strong> nous venons comme des clients lambda pour vivre l'expérience réelle.</li>
+            <li><strong>Dissection :</strong> chaque interaction est comparée à notre Algorithme d'Excellence.</li>
+            <li><strong>Révélation :</strong> un rapport qui transforme votre vision de votre propre hôtel.</li>
+          </ul>`,
         },
         {
-          tag: "6. COMBIEN",
+          tag: "COMBIEN",
           title: "L'Investissement vs le Coût",
           subtitle: "L'incompétence coûte, l'excellence rapporte.",
-          body:
-            "Ne voyez pas le prix de l'audit. Voyez la valeur d'un établissement qui peut justifier des prix 30% supérieurs car son service est irréprochable. Le ROI se grave dans la fidélité de vos clients VIP.",
+          body: "Ne voyez pas le prix de l'audit. Voyez la valeur d'un établissement qui peut justifier des prix 30% supérieurs car son service est irréprochable. Le ROI se grave dans la fidélité de vos clients VIP.",
         },
         {
-          tag: "7. POURQUOI",
+          tag: "POURQUOI",
           title: "La Fierté",
           subtitle: "Créer de l'émotion, du souvenir, de la magie.",
-          body:
-            "Vous ne faites pas ce métier pour être \"correct\". Vous le faites pour écrire une légende. Votre hôtel a le potentiel d'être une Institution : il suffit d'un regard extérieur impitoyable pour l'atteindre.",
+          body: 'Vous ne faites pas ce métier pour être "correct". Vous le faites pour écrire une légende. Votre hôtel a le potentiel d\'être une Institution : il suffit d\'un regard extérieur impitoyable pour l\'atteindre.',
         },
       ],
     },
     pillars: {
       overline: "Les 6 Piliers",
       title: "Notre grille d'excellence",
-      intro: "Chaque pilier est audité, mesuré et orchestré pour délivrer une signature intemporelle.",
+      intro:
+        "Chaque pilier est audité, mesuré et orchestré pour délivrer une signature intemporelle.",
       items: [
         { title: "Ancrage", text: "Un récit ancré dans le lieu, exprimé avec justesse et retenue." },
         { title: "Esthétique", text: "Volumes, lumières, textures : un équilibre sans ostentation." },
@@ -105,9 +133,10 @@ const translations = {
       ],
     },
     lead: {
-      overline: "Formulaire de contact",
+      overline: "Contact",
       title: "Planifions une conversation sur vos objectifs",
-      subtitle: "Partagez vos coordonnées : nous revenons vers vous avec une proposition sur mesure pour élever votre maison au rang d'institution.",
+      subtitle:
+        "Partagez vos coordonnées : nous revenons vers vous avec une proposition sur mesure pour élever votre maison au rang d'institution.",
       firstNameLabel: "Prénom",
       lastNameLabel: "Nom",
       emailLabel: "Email",
@@ -116,95 +145,91 @@ const translations = {
       lastNamePlaceholder: "Nom",
       emailPlaceholder: "nom@domaine.com",
       phonePlaceholder: "Numéro de téléphone",
-      button: "Recevoir",
+      button: "Envoyer",
       hint: "Nous n'envoyons ni spam ni séquences automatiques. Un seul envoi, signature MK.",
-      success: "Message envoyé. Vérifiez votre boîte mail.",
-      invalid: "Entrez un email valide.",
-      duplicate: "Cet email est déjà inscrit. Merci !",
-      missingConfig: "Configuration Supabase manquante. Ajoutez vos clés.",
-      error: "Une erreur est survenue.",
+      success: "Message envoyé. Nous revenons vers vous sous 24h.",
+      invalid: "Veuillez renseigner un email valide.",
+      duplicate: "Cet email est déjà inscrit. Merci.",
+      missingConfig: "Configuration Supabase manquante.",
+      error: "Une erreur est survenue. Veuillez réessayer.",
     },
-    footer: { copy: "Maison MK © 2025. L'Excellence en Signature." },
+    footer: { copy: "L'Excellence en Signature." },
   },
   en: {
-    topbar: { label: "Language", optionFr: "French", optionEn: "English" },
+    topbar: { optionFr: "FR", optionEn: "EN" },
     eyebrow: "Maison MK",
+    nav: { manifesto: "Manifesto", pillars: "Pillars", contact: "Contact" },
     hero: {
+      eyebrow: "Audit & Advisory — Michelin Vision",
       title: "Raise your property to Institution status",
-      subtitle: "Audit & Advisory — Michelin Vision",
+      subtitle:
+        "We audit and sculpt the experience of independent hotels to help them reach the highest international standards.",
       cta: "Discover the method",
     },
     manifesto: {
-      overline: "#manifesto",
-      heading: '🐺 The "Manifesto of Demanding Excellence" (QQOQCCP Maison MK)',
-      intro: "A pact for leaders pursuing absolute perfection. Each principle is a precision blade.",
+      overline: "The Manifesto",
+      heading: "The Manifesto of Demanding Excellence",
+      intro:
+        "A pact for leaders pursuing absolute perfection. Each principle is a precision blade.",
       items: [
         {
-          tag: "1. WHO",
+          tag: "WHO",
           title: "The Elite Target",
           subtitle: "For owners and GMs aiming for absolute perfection.",
-          body:
-            'This is not for average hoteliers. It is for those who know "good" is the enemy of "exceptional." If you just want rooms filled, move on. If you want flawless glory, let’s talk.',
+          body: 'This is not for average hoteliers. It is for those who know "good" is the enemy of "exceptional." If you just want rooms filled, move on. If you want flawless glory, let\'s talk.',
         },
         {
-          tag: "2. WHAT",
+          tag: "WHAT",
           title: "The Absolute Weapon",
           subtitle: "A surgical upgrade based on our 6 Pillars and 3 Golden Rules.",
-          body:
-            "We don’t sell advice; we deliver a Surgical Upgrade. We reveal the exact gap between where you are and the summit.",
+          body: "We don't sell advice; we deliver a Surgical Upgrade. We reveal the exact gap between where you are and the summit.",
         },
         {
-          tag: "3. WHERE",
+          tag: "WHERE",
           title: "In the Invisible That Counts",
           subtitle: "Luxury lives in imperceptible gestures.",
-          body: `
-            <ul>
-              <li><strong>Call Service:</strong> pick up before the 3rd ring with a smile in your voice.</li>
-              <li><strong>Bed Ritual:</strong> razor-sharp turndown, an irresistible invitation to absolute sleep.</li>
-              <li><strong>Intimacy (Shower):</strong> perfect pressure, amenities aligned to the millimeter.</li>
-              <li><strong>Phantom Touch:</strong> chocolate, handwritten note, fresh water waiting. Intent precedes need.</li>
-            </ul>
-          `,
+          body: `<ul>
+            <li><strong>Call Service:</strong> pick up before the 3rd ring with a smile in your voice.</li>
+            <li><strong>Bed Ritual:</strong> razor-sharp turndown, an irresistible invitation to absolute sleep.</li>
+            <li><strong>Intimacy (Shower):</strong> perfect pressure, amenities aligned to the millimeter.</li>
+            <li><strong>Phantom Touch:</strong> chocolate, handwritten note, fresh water waiting. Intent precedes need.</li>
+          </ul>`,
         },
         {
-          tag: "4. WHEN",
-          title: "Now (The Gap)",
+          tag: "WHEN",
+          title: "Now",
           subtitle: "Every day with approximate standards hardwires bad habits.",
-          body:
-            "Excellence won’t wait. You are either moving upmarket or sliding into banality. Mickaël and team only engage where ambition is real. Is it today?",
+          body: "Excellence won't wait. You are either moving upmarket or sliding into banality. Mickaël and team only engage where ambition is real. Is it today?",
         },
         {
-          tag: "5. HOW",
-          title: 'The "Incognito" Method',
+          tag: "HOW",
+          title: "The Incognito Method",
           subtitle: "Silent infiltration, dissection, revelation.",
-          body: `
-            <ul>
-              <li><strong>Infiltration:</strong> we come as regular guests and live the real experience.</li>
-              <li><strong>Dissection:</strong> every interaction is benchmarked against our Algorithm of Excellence.</li>
-              <li><strong>Revelation:</strong> a report that reframes how you see your own hotel.</li>
-            </ul>
-          `,
+          body: `<ul>
+            <li><strong>Infiltration:</strong> we come as regular guests and live the real experience.</li>
+            <li><strong>Dissection:</strong> every interaction is benchmarked against our Algorithm of Excellence.</li>
+            <li><strong>Revelation:</strong> a report that reframes how you see your own hotel.</li>
+          </ul>`,
         },
         {
-          tag: "6. HOW MUCH",
+          tag: "HOW MUCH",
           title: "Investment vs Cost",
           subtitle: "Incompetence costs; excellence pays back.",
-          body:
-            "Don’t look at the audit price. Look at the value of a property that can command rates 30% higher because its service is flawless. ROI is etched in VIP loyalty.",
+          body: "Don't look at the audit price. Look at the value of a property that can command rates 30% higher because its service is flawless. ROI is etched in VIP loyalty.",
         },
         {
-          tag: "7. WHY",
+          tag: "WHY",
           title: "Pride",
           subtitle: "Craft emotion, memories, and magic.",
-          body:
-            'You are not in this business to be "fine." You do it to write a legend. Your hotel can become an Institution; it takes an exacting external eye to get there.',
+          body: 'You are not in this business to be "fine." You do it to write a legend. Your hotel can become an Institution; it takes an exacting external eye to get there.',
         },
       ],
     },
     pillars: {
       overline: "The 6 Pillars",
       title: "Our grid of excellence",
-      intro: "Each pillar is audited, measured, and orchestrated to deliver a timeless signature.",
+      intro:
+        "Each pillar is audited, measured, and orchestrated to deliver a timeless signature.",
       items: [
         { title: "Anchoring", text: "A narrative rooted in place, expressed with restraint." },
         { title: "Aesthetics", text: "Volumes, light, textures: balance without ostentation." },
@@ -215,9 +240,10 @@ const translations = {
       ],
     },
     lead: {
-      overline: "Contact Form",
+      overline: "Contact",
       title: "Let's schedule a conversation about your goals",
-      subtitle: "Share your details: we'll return with a tailored proposal to elevate your property to institution status.",
+      subtitle:
+        "Share your details: we'll return with a tailored proposal to elevate your property to institution status.",
       firstNameLabel: "First name",
       lastNameLabel: "Last name",
       emailLabel: "Email",
@@ -228,17 +254,21 @@ const translations = {
       phonePlaceholder: "Phone number",
       button: "Send",
       hint: "No spam or sequences. A single follow-up, signature MK.",
-      success: "Message sent. Check your inbox.",
-      invalid: "Enter a valid email.",
-      duplicate: "This email is already registered. Thank you!",
-      missingConfig: "Supabase configuration missing. Add your keys.",
-      error: "An error occurred.",
+      success: "Message sent. We'll be in touch within 24h.",
+      invalid: "Please enter a valid email.",
+      duplicate: "This email is already registered. Thank you.",
+      missingConfig: "Supabase configuration missing.",
+      error: "An error occurred. Please try again.",
     },
-    footer: { copy: "Maison MK © 2025. Excellence in Signature." },
+    footer: { copy: "Excellence in Signature." },
   },
 };
 
 let currentLang = "fr";
+
+/* ----------------------------------------------------------------
+   HELPERS
+   ---------------------------------------------------------------- */
 
 const setMessage = (text, type = "") => {
   if (!messageBox) return;
@@ -247,6 +277,10 @@ const setMessage = (text, type = "") => {
 };
 
 const isValidEmail = (value) => /\S+@\S+\.\S+/.test(String(value).trim());
+
+/* ----------------------------------------------------------------
+   i18n
+   ---------------------------------------------------------------- */
 
 const translationsApply = (lang) => {
   currentLang = translations[lang] ? lang : "fr";
@@ -265,17 +299,25 @@ const translationsApply = (lang) => {
     if (el) el.innerHTML = value;
   };
 
-  setText('[data-i18n="topbar.label"]', t.topbar.label);
+  // Topbar
   const optFr = document.querySelector('.lang-select option[value="fr"]');
   const optEn = document.querySelector('.lang-select option[value="en"]');
   if (optFr) optFr.textContent = t.topbar.optionFr;
   if (optEn) optEn.textContent = t.topbar.optionEn;
-
   setText('[data-i18n="eyebrow"]', t.eyebrow);
+
+  // Nav
+  setText('[data-i18n="nav.manifesto"]', t.nav.manifesto);
+  setText('[data-i18n="nav.pillars"]', t.nav.pillars);
+  setText('[data-i18n="nav.contact"]', t.nav.contact);
+
+  // Hero
+  setText('[data-i18n="hero.eyebrow"]', t.hero.eyebrow);
   setText('[data-i18n="hero.title"]', t.hero.title);
   setText('[data-i18n="hero.subtitle"]', t.hero.subtitle);
   setText('[data-i18n="hero.cta"]', t.hero.cta);
 
+  // Manifesto
   setText('[data-i18n="manifesto.overline"]', t.manifesto.overline);
   setText('[data-i18n="manifesto.heading"]', t.manifesto.heading);
   setText('[data-i18n="manifesto.intro"]', t.manifesto.intro);
@@ -293,10 +335,11 @@ const translationsApply = (lang) => {
     if (bodyEl) setHtml(bodyEl, item.body);
   });
 
+  // Pillars
   setText('[data-i18n="pillars.overline"]', t.pillars.overline);
   setText('[data-i18n="pillars.title"]', t.pillars.title);
   setText('[data-i18n="pillars.intro"]', t.pillars.intro);
-  const pillarCards = document.querySelectorAll(".editorial-grid .article-card");
+  const pillarCards = document.querySelectorAll(".pillar-card");
   pillarCards.forEach((card, idx) => {
     const item = t.pillars.items[idx];
     if (!item) return;
@@ -306,6 +349,7 @@ const translationsApply = (lang) => {
     if (p) p.textContent = item.text;
   });
 
+  // Lead
   setText('[data-i18n="lead.overline"]', t.lead.overline);
   setText('[data-i18n="lead.title"]', t.lead.title);
   setText('[data-i18n="lead.subtitle"]', t.lead.subtitle);
@@ -320,8 +364,13 @@ const translationsApply = (lang) => {
   if (emailInput) emailInput.placeholder = t.lead.emailPlaceholder;
   if (phoneInput && !window.iti) phoneInput.placeholder = t.lead.phonePlaceholder;
 
+  // Footer
   setText('[data-i18n="footer.copy"]', t.footer.copy);
 };
+
+/* ----------------------------------------------------------------
+   FORM SUBMISSION
+   ---------------------------------------------------------------- */
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -339,7 +388,10 @@ const handleSubmit = async (event) => {
     return;
   }
   if (!firstName || !lastName) {
-    setMessage(currentLang === "en" ? "Please fill first and last name." : "Renseignez prénom et nom.", "error");
+    setMessage(
+      currentLang === "en" ? "Please fill first and last name." : "Renseignez prénom et nom.",
+      "error"
+    );
     return;
   }
 
@@ -350,7 +402,9 @@ const handleSubmit = async (event) => {
     let formattedPhone = phoneRaw || null;
     if (phoneRaw && window.iti) {
       if (!window.iti.isValidNumber()) {
-        throw new Error(currentLang === "en" ? "Invalid phone number." : "Numéro de téléphone invalide.");
+        throw new Error(
+          currentLang === "en" ? "Invalid phone number." : "Numéro de téléphone invalide."
+        );
       }
       formattedPhone = window.iti.getNumber();
     }
@@ -383,6 +437,10 @@ const handleSubmit = async (event) => {
   }
 };
 
+/* ----------------------------------------------------------------
+   INIT
+   ---------------------------------------------------------------- */
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
@@ -393,6 +451,7 @@ if (langSelect) {
   });
 }
 
+// intl-tel-input
 let itiInstance = null;
 if (phoneInput && window.intlTelInput) {
   itiInstance = window.intlTelInput(phoneInput, {
@@ -401,7 +460,8 @@ if (phoneInput && window.intlTelInput) {
     autoPlaceholder: "polite",
     separateDialCode: false,
     nationalMode: true,
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js",
+    utilsScript:
+      "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js",
   });
   window.iti = itiInstance;
   phoneInput.placeholder = itiInstance.getPlaceholder() || "";
@@ -410,4 +470,6 @@ if (phoneInput && window.intlTelInput) {
   });
 }
 
+// Apply default language & init reveals
 translationsApply("fr");
+initReveals();

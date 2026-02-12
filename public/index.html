@@ -4,46 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maison MK — Silence & Luxe</title>
+  <meta name="description" content="Audit & Conseil Vision Michelin pour hôtels d'exception. Élevez votre établissement au rang d'Institution.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- Topbar -->
   <div class="topbar">
-    <div class="shell topbar-shell">
-      <span class="topbar-label" data-i18n="topbar.label">Langue</span>
-      <select class="lang-select" aria-label="Choisir la langue">
-        <option value="fr" selected data-i18n="topbar.optionFr">Français</option>
-        <option value="en" data-i18n="topbar.optionEn">English</option>
-      </select>
+    <div class="shell topbar-inner">
+      <span class="topbar-brand" data-i18n="eyebrow">Maison MK</span>
+      <nav class="topbar-nav">
+        <a href="#manifeste" class="nav-link" data-i18n="nav.manifesto">Manifeste</a>
+        <a href="#piliers" class="nav-link" data-i18n="nav.pillars">Piliers</a>
+        <a href="#lead" class="nav-link" data-i18n="nav.contact">Contact</a>
+        <span class="nav-divider"></span>
+        <select class="lang-select" aria-label="Choisir la langue">
+          <option value="fr" selected data-i18n="topbar.optionFr">FR</option>
+          <option value="en" data-i18n="topbar.optionEn">EN</option>
+        </select>
+      </nav>
     </div>
   </div>
 
+  <!-- Hero -->
   <header class="hero" id="top">
     <div class="shell hero-shell">
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n="eyebrow">Maison MK</p>
-        <h1 data-i18n="hero.title">Élevez votre établissement au rang d'Institution</h1>
-        <p class="lede" data-i18n="hero.subtitle">Audit & Conseil Vision Michelin</p>
-        <div class="hero-cta">
-          <a class="ghost" href="#lead" data-i18n="hero.cta">Découvrir la méthode</a>
-        </div>
+      <div class="hero-content" data-reveal>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Audit & Conseil Vision Michelin</p>
+        <h1 data-i18n="hero.title">Élevez votre établissement<br>au rang d'Institution</h1>
+        <p class="hero-sub" data-i18n="hero.subtitle">Nous auditons et sculptons l'expérience des hôtels indépendants pour qu'ils atteignent les standards internationaux les plus élevés.</p>
+        <a class="cta-primary" href="#lead" data-i18n="hero.cta">Découvrir la méthode</a>
       </div>
-      <div class="hero-visual" aria-hidden="true"></div>
     </div>
+    <div class="hero-fade" aria-hidden="true"></div>
   </header>
 
   <main>
+
+    <!-- Manifeste -->
     <section class="manifesto" id="manifeste" aria-labelledby="manifesto-title">
-      <div class="shell manifesto-shell">
-        <div class="section-head">
-          <p class="eyebrow" data-i18n="manifesto.overline">#manifeste</p>
-          <h2 id="manifesto-title" data-i18n="manifesto.heading">🐺 Le "Manifeste de l'Exigence" (QQOQCCP Maison MK)</h2>
-          <p class="muted" data-i18n="manifesto.intro">Un pacte pour les dirigeants qui visent la perfection absolue. Chaque principe est une lame de précision.</p>
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow" data-i18n="manifesto.overline">Le Manifeste</p>
+          <h2 id="manifesto-title" data-i18n="manifesto.heading">Le Manifeste de l'Exigence</h2>
+          <p class="section-intro" data-i18n="manifesto.intro">Un pacte pour les dirigeants qui visent la perfection absolue. Chaque principe est une lame de précision.</p>
         </div>
-        <div class="manifesto-grid">
+        <div class="manifesto-grid" data-reveal>
           <details class="manifesto-card" open>
             <summary>
-              <span class="tag" data-i18n="manifesto.items.0.tag">1. QUI</span>
+              <span class="tag" data-i18n="manifesto.items.0.tag">QUI</span>
               <div>
                 <h3 data-i18n="manifesto.items.0.title">La Cible d'Élite</h3>
                 <p data-i18n="manifesto.items.0.subtitle">Pour les propriétaires et directeurs qui visent la perfection absolue.</p>
@@ -56,7 +69,7 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.1.tag">2. QUOI</span>
+              <span class="tag" data-i18n="manifesto.items.1.tag">QUOI</span>
               <div>
                 <h3 data-i18n="manifesto.items.1.title">L'Arme Absolue</h3>
                 <p data-i18n="manifesto.items.1.subtitle">Mise à niveau chirurgicale basée sur notre grille 6 Piliers, 3 Règles d'Or.</p>
@@ -69,7 +82,7 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.2.tag">3. OÙ</span>
+              <span class="tag" data-i18n="manifesto.items.2.tag">OÙ</span>
               <div>
                 <h3 data-i18n="manifesto.items.2.title">Dans l'invisible qui compte</h3>
                 <p data-i18n="manifesto.items.2.subtitle">Le luxe se joue dans les gestes imperceptibles.</p>
@@ -87,9 +100,9 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.3.tag">4. QUAND</span>
+              <span class="tag" data-i18n="manifesto.items.3.tag">QUAND</span>
               <div>
-                <h3 data-i18n="manifesto.items.3.title">Maintenant (The Gap)</h3>
+                <h3 data-i18n="manifesto.items.3.title">Maintenant</h3>
                 <p data-i18n="manifesto.items.3.subtitle">Chaque jour avec un standard approximatif ancre de mauvaises habitudes.</p>
               </div>
             </summary>
@@ -100,9 +113,9 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.4.tag">5. COMMENT</span>
+              <span class="tag" data-i18n="manifesto.items.4.tag">COMMENT</span>
               <div>
-                <h3 data-i18n="manifesto.items.4.title">La Méthode "Incognito"</h3>
+                <h3 data-i18n="manifesto.items.4.title">La Méthode Incognito</h3>
                 <p data-i18n="manifesto.items.4.subtitle">Infiltration silencieuse, dissection, révélation.</p>
               </div>
             </summary>
@@ -117,7 +130,7 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.5.tag">6. COMBIEN</span>
+              <span class="tag" data-i18n="manifesto.items.5.tag">COMBIEN</span>
               <div>
                 <h3 data-i18n="manifesto.items.5.title">L'Investissement vs le Coût</h3>
                 <p data-i18n="manifesto.items.5.subtitle">L'incompétence coûte, l'excellence rapporte.</p>
@@ -130,7 +143,7 @@
 
           <details class="manifesto-card">
             <summary>
-              <span class="tag" data-i18n="manifesto.items.6.tag">7. POURQUOI</span>
+              <span class="tag" data-i18n="manifesto.items.6.tag">POURQUOI</span>
               <div>
                 <h3 data-i18n="manifesto.items.6.title">La Fierté</h3>
                 <p data-i18n="manifesto.items.6.subtitle">Créer de l'émotion, du souvenir, de la magie.</p>
@@ -144,41 +157,42 @@
       </div>
     </section>
 
-    <section class="pillars" aria-labelledby="pillars-title">
+    <!-- Piliers -->
+    <section class="pillars" id="piliers" aria-labelledby="pillars-title">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="eyebrow" data-i18n="pillars.overline">Les 6 Piliers</p>
           <h2 id="pillars-title" data-i18n="pillars.title">Notre grille d'excellence</h2>
-          <p class="muted" data-i18n="pillars.intro">Chaque pilier est audité, mesuré et orchestré pour délivrer une signature intemporelle.</p>
+          <p class="section-intro" data-i18n="pillars.intro">Chaque pilier est audité, mesuré et orchestré pour délivrer une signature intemporelle.</p>
         </div>
-        <div class="editorial-grid">
-          <article class="card article-card" data-pillar-index="0">
-            <div class="article-image" aria-hidden="true"></div>
+        <div class="pillars-grid" data-reveal>
+          <article class="pillar-card" data-pillar-index="0">
+            <span class="pillar-number">01</span>
             <h3>Ancrage</h3>
             <p>Un récit ancré dans le lieu, exprimé avec justesse et retenue.</p>
           </article>
-          <article class="card article-card" data-pillar-index="1">
-            <div class="article-image" aria-hidden="true"></div>
+          <article class="pillar-card" data-pillar-index="1">
+            <span class="pillar-number">02</span>
             <h3>Esthétique</h3>
             <p>Volumes, lumières, textures : un équilibre sans ostentation.</p>
           </article>
-          <article class="card article-card" data-pillar-index="2">
-            <div class="article-image" aria-hidden="true"></div>
+          <article class="pillar-card" data-pillar-index="2">
+            <span class="pillar-number">03</span>
             <h3>Savoir-Être</h3>
             <p>Une chorégraphie humaine qui précède les attentes, jamais l'effet.</p>
           </article>
-          <article class="card article-card" data-pillar-index="3">
-            <div class="article-image" aria-hidden="true"></div>
+          <article class="pillar-card" data-pillar-index="3">
+            <span class="pillar-number">04</span>
             <h3>Signature Culinaire</h3>
             <p>Une narration gustative cohérente, du lever au dernier verre.</p>
           </article>
-          <article class="card article-card" data-pillar-index="4">
-            <div class="article-image" aria-hidden="true"></div>
+          <article class="pillar-card" data-pillar-index="4">
+            <span class="pillar-number">05</span>
             <h3>Fluidité Service</h3>
             <p>Des parcours invités orchestrés, sans friction ni répétition.</p>
           </article>
-          <article class="card article-card" data-pillar-index="5">
-            <div class="article-image" aria-hidden="true"></div>
+          <article class="pillar-card" data-pillar-index="5">
+            <span class="pillar-number">06</span>
             <h3>Aura Sonore</h3>
             <p>Une acoustique et une bande-son qui sculptent le silence habité.</p>
           </article>
@@ -186,42 +200,50 @@
       </div>
     </section>
 
+    <!-- Contact / Lead -->
     <section class="lead" id="lead" aria-labelledby="lead-title">
       <div class="shell lead-shell">
-        <div class="lead-copy">
-          <p class="eyebrow" data-i18n="lead.overline">Formulaire de contact</p>
+        <div class="lead-copy" data-reveal>
+          <p class="eyebrow" data-i18n="lead.overline">Contact</p>
           <h2 id="lead-title" data-i18n="lead.title">Planifions une conversation sur vos objectifs</h2>
-          <p class="muted" data-i18n="lead.subtitle">Partagez vos coordonnées : nous revenons vers vous avec une proposition sur mesure pour élever votre maison au rang d'institution.</p>
+          <p class="section-intro" data-i18n="lead.subtitle">Partagez vos coordonnées : nous revenons vers vous avec une proposition sur mesure pour élever votre maison au rang d'institution.</p>
         </div>
-        <form class="lead-form" novalidate>
-        <div class="form-grid">
-          <label for="firstName" data-i18n="lead.firstNameLabel">Prénom</label>
-          <input id="firstName" name="firstName" type="text" placeholder="Prénom" autocomplete="given-name" required>
-
-          <label for="lastName" data-i18n="lead.lastNameLabel">Nom</label>
-          <input id="lastName" name="lastName" type="text" placeholder="Nom" autocomplete="family-name" required>
-
-          <label for="email" data-i18n="lead.emailLabel">Email</label>
-          <input id="email" name="email" type="email" placeholder="nom@domaine.com" required autocomplete="email">
-
-          <label for="phone" data-i18n="lead.phoneLabel">Téléphone</label>
-            <div class="phone-wrapper">
-              <input id="phone" name="phone" type="tel" autocomplete="tel">
+        <form class="lead-form" data-reveal novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="firstName" data-i18n="lead.firstNameLabel">Prénom</label>
+              <input id="firstName" name="firstName" type="text" placeholder="Prénom" autocomplete="given-name" required>
             </div>
-        </div>
-          <p class="form-hint muted" data-i18n="lead.hint">Nous n'envoyons ni spam ni séquences automatiques. Un seul envoi, signature MK.</p>
+            <div class="field">
+              <label for="lastName" data-i18n="lead.lastNameLabel">Nom</label>
+              <input id="lastName" name="lastName" type="text" placeholder="Nom" autocomplete="family-name" required>
+            </div>
+            <div class="field">
+              <label for="email" data-i18n="lead.emailLabel">Email</label>
+              <input id="email" name="email" type="email" placeholder="nom@domaine.com" required autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="phone" data-i18n="lead.phoneLabel">Téléphone</label>
+              <div class="phone-wrapper">
+                <input id="phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+          </div>
+          <p class="form-hint" data-i18n="lead.hint">Nous n'envoyons ni spam ni séquences automatiques. Un seul envoi, signature MK.</p>
           <div class="form-actions">
-            <button type="submit" data-i18n="lead.button">Recevoir</button>
+            <button type="submit" data-i18n="lead.button">Envoyer</button>
             <div class="form-message" role="status" aria-live="polite"></div>
           </div>
         </form>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
-    <div class="shell">
-      <p data-i18n="footer.copy">Maison MK © 2025. L'Excellence en Signature.</p>
+    <div class="shell footer-inner">
+      <span class="footer-brand">Maison MK</span>
+      <p data-i18n="footer.copy">L'Excellence en Signature.</p>
     </div>
   </footer>
 
