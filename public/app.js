@@ -464,9 +464,14 @@ if (phoneInput && window.intlTelInput) {
       "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js",
   });
   window.iti = itiInstance;
-  phoneInput.placeholder = itiInstance.getPlaceholder() || "";
+  const syncPhonePlaceholder = () => {
+    if (typeof itiInstance.getPlaceholder === "function") {
+      phoneInput.placeholder = itiInstance.getPlaceholder() || "";
+    }
+  };
+  syncPhonePlaceholder();
   phoneInput.addEventListener("countrychange", () => {
-    phoneInput.placeholder = itiInstance.getPlaceholder() || "";
+    syncPhonePlaceholder();
   });
 }
 
