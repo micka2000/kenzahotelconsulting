@@ -108,12 +108,32 @@ h1, h2, h3 {
   height: 56px;
 }
 
-.topbar-brand {
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--fg);
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #f2ede3;
+  background-image: url("logo-mk.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+}
+
+.brand-text {
+  line-height: 1;
 }
 
 .topbar-nav {
@@ -695,6 +715,13 @@ button[type="submit"]:disabled {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg);
+}
+
+.brand--footer .brand-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
 }
 
 .footer p {
