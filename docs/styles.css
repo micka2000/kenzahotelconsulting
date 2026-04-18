@@ -691,7 +691,8 @@ h1, h2, h3 {
 .lead-form input[type="email"],
 .lead-form input[type="tel"] {
   width: 100%;
-  padding: 12px 14px;
+  height: 44px;
+  padding: 0 14px;
   font-family: inherit;
   font-size: 15px;
   font-weight: 400;
@@ -700,6 +701,10 @@ h1, h2, h3 {
   border: 1px solid var(--line);
   border-radius: 10px;
   transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.field--full {
+  grid-column: 1 / -1;
 }
 
 .lead-form input::placeholder {
@@ -1022,6 +1027,14 @@ button[type="submit"]:focus-visible {
   [data-reveal] {
     transform: translateY(16px);
     transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+}
+
+/* Prevent iOS zoom on all inputs — font-size must be >= 16px */
+@media (max-width: 640px) {
+  .lead-form input[type="text"],
+  .lead-form input[type="email"] {
+    font-size: 16px;
   }
 }
 
