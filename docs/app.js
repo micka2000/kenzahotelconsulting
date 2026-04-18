@@ -11,6 +11,7 @@ const langSelect = document.querySelector(".lang-select");
 const firstNameInput = form?.querySelector("#firstName");
 const lastNameInput = form?.querySelector("#lastName");
 const phoneInput = form?.querySelector("#phone");
+const companyInput = form?.querySelector("#company");
 
 const SUPABASE_URL = "VOTRE_URL";
 const SUPABASE_KEY = "VOTRE_KEY";
@@ -169,6 +170,8 @@ const translations = {
       lastNamePlaceholder: "Nom",
       emailPlaceholder: "nom@domaine.com",
       phonePlaceholder: "Numéro de téléphone",
+      companyLabel: "Établissement",
+      companyPlaceholder: "Nom de l'hôtel ou de l'établissement",
       button: "Envoyer",
       hint: "Nous n'envoyons ni spam ni séquences automatiques. Un seul envoi, signature MK.",
       success: "Message envoyé. Nous revenons vers vous sous 24h.",
@@ -300,6 +303,8 @@ const translations = {
       lastNamePlaceholder: "Last name",
       emailPlaceholder: "name@company.com",
       phonePlaceholder: "Phone number",
+      companyLabel: "Property",
+      companyPlaceholder: "Hotel or property name",
       button: "Send",
       hint: "No spam or sequences. A single follow-up, signature MK.",
       success: "Message sent. We'll be in touch within 24h.",
@@ -425,12 +430,14 @@ const translationsApply = (lang) => {
   setText('[data-i18n="lead.lastNameLabel"]', t.lead.lastNameLabel);
   setText('[data-i18n="lead.emailLabel"]', t.lead.emailLabel);
   setText('[data-i18n="lead.phoneLabel"]', t.lead.phoneLabel);
+  setText('[data-i18n="lead.companyLabel"]', t.lead.companyLabel);
   setText('[data-i18n="lead.button"]', t.lead.button);
   setText('[data-i18n="lead.hint"]', t.lead.hint);
   if (firstNameInput) firstNameInput.placeholder = t.lead.firstNamePlaceholder;
   if (lastNameInput) lastNameInput.placeholder = t.lead.lastNamePlaceholder;
   if (emailInput) emailInput.placeholder = t.lead.emailPlaceholder;
   if (phoneInput && !window.iti) phoneInput.placeholder = t.lead.phonePlaceholder;
+  if (companyInput) companyInput.placeholder = t.lead.companyPlaceholder;
 
   // Footer
   setText('[data-i18n="footer.copy"]', t.footer.copy);
@@ -477,11 +484,13 @@ const handleSubmit = async (event) => {
       formattedPhone = window.iti.getNumber();
     }
 
+    const company = companyInput ? companyInput.value.trim() || null : null;
+
     const payload = {
       name: `${firstName} ${lastName}`.trim(),
       email,
       phone: formattedPhone,
-      company: "N/A",
+      company,
     };
 
     const response = await fetch("/api/contact", {
