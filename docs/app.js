@@ -553,7 +553,7 @@ if (phoneInput && window.intlTelInput) {
 }
 
 // Apply default language & init reveals
-translationsApply("fr");
+translationsApply("en");
 if (window.innerWidth <= 640) {
   document.querySelectorAll(".manifesto-card[open]")
     .forEach((el) => el.removeAttribute("open"));
