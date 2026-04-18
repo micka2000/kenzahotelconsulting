@@ -164,6 +164,13 @@ h1, h2, h3 {
   color: var(--fg);
 }
 
+.nav-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+  color: var(--fg);
+}
+
 .nav-divider {
   width: 1px;
   height: 16px;
@@ -370,6 +377,14 @@ h1, h2, h3 {
   gap: 16px;
 }
 
+.manifesto-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.manifesto-card:last-child .manifesto-body {
+  max-width: 680px;
+}
+
 .manifesto-card {
   background: var(--panel-s);
   backdrop-filter: blur(12px);
@@ -401,6 +416,12 @@ h1, h2, h3 {
 
 .manifesto-card summary::-webkit-details-marker {
   display: none;
+}
+
+.manifesto-card summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .manifesto-card summary::after {
@@ -532,6 +553,86 @@ h1, h2, h3 {
   color: var(--muted);
   line-height: 1.65;
   font-weight: 400;
+}
+
+/* ================================================================
+   TÉMOIGNAGES
+   ================================================================ */
+
+.testimonials {
+  padding: 96px 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 48px;
+}
+
+.testimonial-item {
+  margin: 0;
+}
+
+.testimonial-item blockquote {
+  margin: 0 0 20px;
+}
+
+.testimonial-item blockquote::before {
+  content: "«";
+  display: block;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.testimonial-item blockquote p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--fg-soft);
+  font-style: italic;
+}
+
+.testimonial-item figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.testimonial-name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+}
+
+.testimonial-role {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.testimonial-property {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .testimonials {
+    padding: 64px 0;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
 
 /* ================================================================
@@ -742,6 +843,11 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+button[type="submit"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .form-message {
