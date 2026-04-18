@@ -274,6 +274,7 @@ const setMessage = (text, type = "") => {
   if (!messageBox) return;
   messageBox.textContent = text;
   messageBox.className = `form-message${type ? " " + type : ""}`;
+  if (text) messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
 };
 
 const isValidEmail = (value) => /\S+@\S+\.\S+/.test(String(value).trim());
@@ -289,8 +290,10 @@ const translationsApply = (lang) => {
 
   const setText = (target, value) => {
     if (typeof value !== "string") return;
-    const el = typeof target === "string" ? document.querySelector(target) : target;
-    if (el) el.textContent = value;
+    const els = typeof target === "string"
+      ? document.querySelectorAll(target)
+      : [target];
+    els.forEach((el) => { if (el) el.textContent = value; });
   };
 
   const setHtml = (target, value) => {
@@ -477,4 +480,8 @@ if (phoneInput && window.intlTelInput) {
 
 // Apply default language & init reveals
 translationsApply("fr");
+if (window.innerWidth <= 640) {
+  document.querySelectorAll(".manifesto-card[open]")
+    .forEach((el) => el.removeAttribute("open"));
+}
 initReveals();
