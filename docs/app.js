@@ -532,7 +532,7 @@ if (langSelect) {
 let itiInstance = null;
 if (phoneInput && window.intlTelInput) {
   itiInstance = window.intlTelInput(phoneInput, {
-    initialCountry: "fr",
+    initialCountry: "ca",
     allowDropdown: true,
     autoPlaceholder: "polite",
     separateDialCode: false,
