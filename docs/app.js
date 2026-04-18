@@ -54,7 +54,7 @@ const translations = {
     nav: { manifesto: "Manifeste", pillars: "Piliers", contact: "Contact" },
     hero: {
       eyebrow: "Audit & Conseil Vision Michelin",
-      title: "Élevez votre établissement au rang d'Institution",
+      title: "Élevez votre établissement au rang d\u2019Institution",
       subtitle:
         "Nous auditons et sculptons l'expérience des hôtels indépendants pour qu'ils atteignent les standards internationaux les plus élevés.",
       cta: "Découvrir la méthode",
@@ -130,6 +130,30 @@ const translations = {
         { title: "Signature Culinaire", text: "Une narration gustative cohérente, du lever au dernier verre." },
         { title: "Fluidité Service", text: "Des parcours invités orchestrés, sans friction ni répétition." },
         { title: "Aura Sonore", text: "Une acoustique et une bande-son qui sculptent le silence habité." },
+      ],
+    },
+    testimonials: {
+      overline: "Témoignages",
+      heading: "Ils ont choisi l'Exigence",
+      items: [
+        {
+          quote: "«L'audit a révélé trois écarts que nous n'aurions jamais identifiés nous-mêmes. En trois mois, nos retours clients ont radicalement changé.»",
+          name: "[Prénom N.]",
+          role: "Directeur Général",
+          property: "[Nom de l'Hôtel] · [Ville]",
+        },
+        {
+          quote: "«La méthode Incognito est redoutable. Nous avons été évalués sans le savoir, et le rapport a été d'une précision chirurgicale.»",
+          name: "[Prénom N.]",
+          role: "Propriétaire",
+          property: "[Nom de l'Hôtel] · [Ville]",
+        },
+        {
+          quote: "«Maison MK ne vous dit pas ce que vous voulez entendre. Ils vous montrent l'écart exact. C'est exactement ce dont nous avions besoin.»",
+          name: "[Prénom N.]",
+          role: "Directrice des Opérations",
+          property: "[Nom de l'Hôtel] · [Ville]",
+        },
       ],
     },
     lead: {
@@ -237,6 +261,30 @@ const translations = {
         { title: "Culinary Signature", text: "A coherent taste narrative, from sunrise to last glass." },
         { title: "Service Flow", text: "Guest journeys orchestrated without friction or repetition." },
         { title: "Sonic Aura", text: "Acoustics and soundscape that sculpt inhabited silence." },
+      ],
+    },
+    testimonials: {
+      overline: "Testimonials",
+      heading: "They Chose Excellence",
+      items: [
+        {
+          quote: "\"The audit revealed three gaps we never would have identified on our own. In three months, our guest feedback changed radically.\"",
+          name: "[First Name L.]",
+          role: "General Manager",
+          property: "[Hotel Name] · [City]",
+        },
+        {
+          quote: "\"The Incognito method is formidable. We were evaluated without knowing it, and the report was surgically precise.\"",
+          name: "[First Name L.]",
+          role: "Owner",
+          property: "[Hotel Name] · [City]",
+        },
+        {
+          quote: "\"Maison MK doesn't tell you what you want to hear. They show you the exact gap. That's exactly what we needed.\"",
+          name: "[First Name L.]",
+          role: "Director of Operations",
+          property: "[Hotel Name] · [City]",
+        },
       ],
     },
     lead: {
@@ -350,6 +398,23 @@ const translationsApply = (lang) => {
     const p = card.querySelector("p");
     if (h3) h3.textContent = item.title;
     if (p) p.textContent = item.text;
+  });
+
+  // Testimonials
+  setText('[data-i18n="testimonials.overline"]', t.testimonials.overline);
+  setText('[data-i18n="testimonials.heading"]', t.testimonials.heading);
+  const testimonialItems = document.querySelectorAll(".testimonial-item");
+  testimonialItems.forEach((item, idx) => {
+    const ti = t.testimonials.items[idx];
+    if (!ti) return;
+    const quoteEl = item.querySelector('[data-i18n^="testimonials.items"][data-i18n$=".quote"]');
+    const nameEl = item.querySelector('[data-i18n^="testimonials.items"][data-i18n$=".name"]');
+    const roleEl = item.querySelector('[data-i18n^="testimonials.items"][data-i18n$=".role"]');
+    const propEl = item.querySelector('[data-i18n^="testimonials.items"][data-i18n$=".property"]');
+    if (quoteEl) quoteEl.textContent = ti.quote;
+    if (nameEl) nameEl.textContent = ti.name;
+    if (roleEl) roleEl.textContent = ti.role;
+    if (propEl) propEl.textContent = ti.property;
   });
 
   // Lead
