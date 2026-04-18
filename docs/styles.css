@@ -771,8 +771,9 @@ h1, h2, h3 {
   background: #fff;
   z-index: 9999;
   box-shadow: var(--shadow-l);
+  border: 1px solid var(--line);
   border-radius: 10px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .iti__country-list .iti__country {
@@ -785,7 +786,8 @@ h1, h2, h3 {
 
 .iti__tel-input {
   width: 100%;
-  padding: 12px 14px;
+  height: 44px;
+  padding: 0 14px;
   font-family: inherit;
   font-size: 15px;
   font-weight: 400;
@@ -793,7 +795,6 @@ h1, h2, h3 {
   background: rgba(255,255,255,0.6);
   border: 1px solid var(--line);
   border-radius: 10px;
-  height: 44px;
   transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
 }
 
@@ -1038,9 +1039,12 @@ button[type="submit"]:focus-visible {
   }
 }
 
-/* intl-tel-input — prevent iOS zoom + narrow flag column */
-.iti__tel-input { font-size: 16px; }
+/* intl-tel-input — prevent iOS zoom */
+@media (max-width: 640px) {
+  .iti__tel-input { font-size: 16px; }
+}
 
+/* intl-tel-input — narrow flag column at very small viewports */
 @media (max-width: 400px) {
   .iti { grid-template-columns: 72px 1fr; }
 }
