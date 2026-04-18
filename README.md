@@ -1,51 +1,111 @@
-# 🏛️ Maison MK – Le Manifeste Technique
+# 🏛️ Maison MK — Kenza Hotel Consulting
 
-> **INSTRUCTION SYSTÈME :** Ce document est la "Constitution" de la Maison MK. Avant d'écrire une seule ligne de code ou de proposer une architecture, chaque agent IA (Codex) doit assimiler ces règles. Tout écart par rapport à l'esprit "Haute Couture" ou à la contrainte "Zéro Coût" sera considéré comme un échec critique.
-
----
-
-## 1. La Vision : "L'Art de l'Hospitalité"
-**Maison MK** n'est pas un cabinet de conseil, c'est une maison d'excellence. Nous auditons et sculptons l'expérience des hôtels indépendants pour qu'ils atteignent les standards internationaux les plus élevés (Michelin, Palace).
-
-* **Notre Signature :** L'audit "Vision Michelin" – Impartial, Incognito, Chirurgical.
-* **Notre Promesse :** "Élevez votre établissement au rang d'Institution."
-* **L'Esthétique :** Intemporelle, Épurée, "Silence & Luxe". Pas de bruit, que de l'essentiel.
+> Audit & Conseil Vision Michelin pour hôtels indépendants d'exception.
+> **Site live :** [micka2000.github.io/kenzahotelconsulting](https://micka2000.github.io/kenzahotelconsulting/)
 
 ---
 
-## 2. La Méthode MK (L'Algorithme de Scoring)
-L'application repose sur une évaluation holistique (Note de 1 à 5) basée sur nos **6 Piliers d'Excellence** :
+## Stack Actuelle (Production)
 
-1.  🌍 **Ancrage (Terroir) :** L'hôtel célèbre-t-il sa destination avec fierté ?
-2.  🎨 **Esthétique (Architecture) :** Le design provoque-t-il une émotion durable ?
-3.  🤝 **Savoir-Être (Service) :** L'accueil est-il un art ou une procédure ?
-4.  🛏️ **Sérénité (Confort) :** Le silence et la maintenance sont-ils absolus ?
-5.  💎 **Générosité (Valeur) :** L'expérience dépasse-t-elle le prix ?
-6.  ✨ **Âme (Caractère) :** La Maison a-t-elle une personnalité unique ?
-
-### Les Règles d'Or de la Maison
-* **Propreté Absolue :** Le respect commence par l'hygiène irréprochable.
-* **L'Accueil Signature :** Chaque client est un invité de marque.
-* **L'Inattendu :** Le détail qui surprend et enchante.
+| Couche | Technologie | Statut |
+|---|---|---|
+| Frontend | HTML5 / CSS3 / Vanilla JS | ✅ Live |
+| Hébergement | GitHub Pages (`./docs`) | ✅ Live |
+| Téléphone | intl-tel-input 19.5.6 (CDN) | ✅ Live |
+| Fonts | Google Fonts — Inter (CDN) | ✅ Live |
+| Backend | Node.js + SQLite (`server.js`) | 🔧 Local uniquement |
+| Base de données | Supabase (PostgreSQL Free Tier) | ⏳ À configurer |
+| Formulaire contact | `/api/contact` via fetch | ⚠️ Credentials manquants |
+| IA | Google Gemini API (Free Tier) | ⏳ À intégrer |
 
 ---
 
-## 3. Architecture Technique : La "Zero Cost Golden Stack"
-Nous sommes des artisans avisés. L'architecture doit être souveraine et pérenne, avec un coût de fonctionnement de **0$**.
+## Architecture des Fichiers
 
-* **Frontend :** **Vercel** (Hobby Plan). HTML5 / CSS3 / Vanilla JS.
-* **Backend :** **Vercel Serverless Functions**.
-* **Data :** **Supabase** (PostgreSQL - Free Tier). Sécurité bancaire pour nos clients.
-* **IA :** **Google Gemini API** (Free Tier). Le "Concierge Digital" de la Maison.
+```
+docs/                  → Site statique déployé sur GitHub Pages
+  index.html           → Page unique (Hero, Manifeste, Piliers, Contact)
+  styles.css           → Tous les styles
+  app.js               → Logique client (i18n FR/EN, formulaire, scroll reveals)
+
+server.js              → Serveur local Node.js + SQLite (non déployé)
+  GET  /api/hotels     → Liste des hôtels (filtre, tri)
+  GET  /api/hotels/:id → Détail d'un hôtel
+  POST /api/contact    → Enregistrement d'un lead
+
+role prompt/           → Prompts système pour agents IA
+  ROLE_ARCHITECT.md    → CTO — infrastructure, SQL, coût zéro
+  ROLE_BUILDER.md      → Dev — interface pixel perfect
+  ROLE_EXPERT.md       → Expert Michelin — ton et style
+  ROLE_STRATEGIST.md   → Stratégie business
+
+.github/workflows/
+  deploy.yml           → CI/CD : push sur main → GitHub Pages
+```
 
 ---
 
-## 4. Gouvernance & Rôles
-La Maison MK exige une rigueur absolue.
+## Lancer en Local
 
-1.  **L'Architecte (CTO) :** Garant de la pérennité et du budget zéro. Valide les plans.
-2.  **L'Artisan (Dev Apple) :** Façonne l'interface avec une précision "Pixel Perfect".
-3.  **Le Gardien (Expert Michelin) :** Veille à ce que le ton et le style soient dignes de la Maison.
+```bash
+# Installer les dépendances (sqlite3 pour server.js)
+npm install
+
+# Démarrer le serveur local → http://localhost:3000
+npm start
+
+# Ou prévisualiser uniquement le frontend statique
+npx serve docs
+```
 
 ---
-*Maison MK – L'Excellence en Signature.*
+
+## Configuration Requise (Supabase)
+
+Dans `docs/app.js`, remplacer les placeholders :
+
+```js
+const SUPABASE_URL = "VOTRE_URL";   // → URL de votre projet Supabase
+const SUPABASE_KEY = "VOTRE_KEY";   // → Clé anon publique Supabase
+```
+
+Une fois configuré, les leads du formulaire seront stockés dans Supabase (table `contacts`).
+
+---
+
+## Déploiement
+
+Tout push sur la branche `main` déclenche automatiquement le workflow GitHub Actions qui publie le dossier `./docs` sur GitHub Pages. Aucune étape de build n'est nécessaire.
+
+---
+
+## Stack Cible (Roadmap)
+
+La vision "Zero Cost Golden Stack" vise à migrer vers :
+
+- **Hébergement :** Vercel (Hobby Plan) pour bénéficier des Serverless Functions
+- **Backend :** Vercel Serverless Functions (remplace `server.js`)
+- **Data :** Supabase PostgreSQL avec Row Level Security
+- **IA :** Google Gemini API — "Concierge Digital" pour qualifier les leads
+
+---
+
+## La Vision Maison MK
+
+**Maison MK** n'est pas un cabinet de conseil, c'est une maison d'excellence. L'audit "Vision Michelin" repose sur **6 Piliers d'Excellence** :
+
+1. 🌍 **Ancrage** — L'hôtel célèbre-t-il sa destination ?
+2. 🎨 **Esthétique** — Le design provoque-t-il une émotion durable ?
+3. 🤝 **Savoir-Être** — L'accueil est-il un art ?
+4. 🍽️ **Signature Culinaire** — La narration gustative est-elle cohérente ?
+5. 🔄 **Fluidité Service** — Les parcours invités sont-ils sans friction ?
+6. 🎵 **Aura Sonore** — L'acoustique sculpte-t-elle le silence ?
+
+### Les 3 Règles d'Or
+- **Propreté Absolue** — Le respect commence par l'hygiène irréprochable.
+- **L'Accueil Signature** — Chaque client est un invité de marque.
+- **L'Inattendu** — Le détail qui surprend et enchante.
+
+---
+
+*Maison MK — L'Excellence en Signature.*
