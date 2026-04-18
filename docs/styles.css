@@ -867,6 +867,87 @@ button[type="submit"]:disabled {
   }
 }
 
+/* ================================================================
+   MOBILE ENHANCEMENTS
+   ================================================================ */
+
+/* Mobile Contact CTA — matches lang-select visual language */
+.nav-cta-mobile {
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  text-transform: uppercase;
+  transition: border-color 0.3s var(--ease);
+}
+
+@media (max-width: 640px) {
+  .nav-cta-mobile {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* iOS Safari CTA fix — gold animation on tap */
+@media (hover: none) {
+  .cta-primary:active { --active: 1; }
+}
+
+/* Touch states — scale feels native, translateY feels jerky */
+.pillar-card:active,
+.manifesto-card:active {
+  transform: scale(0.98);
+  transition: transform 0.1s var(--ease);
+}
+
+/* 44px touch targets on mobile */
+@media (max-width: 640px) {
+  .manifesto-card summary { min-height: 44px; }
+  .lang-select { min-height: 44px; padding-top: 0; padding-bottom: 0; }
+}
+
+/* Scroll reveal — reduce motion distance on mobile */
+@media (max-width: 640px) {
+  [data-reveal] {
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+}
+
+/* intl-tel-input — prevent iOS zoom + narrow flag column */
+.iti__tel-input { font-size: 16px; }
+
+@media (max-width: 400px) {
+  .iti { grid-template-columns: 72px 1fr; }
+}
+
+/* 375px breakpoint pass */
+@media (max-width: 400px) {
+  .hero h1 { font-size: clamp(26px, 7vw, 34px); }
+  .pillar-card { padding: 28px 20px 24px; }
+  .lead-form { padding: 20px; }
+  .manifesto-card { padding: 16px; }
+}
+
+/* prefers-reduced-motion — MUST be last to win over mobile breakpoints */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pillar-card,
+  .manifesto-card,
+  .cta-primary {
+    transition: none;
+  }
+}
+
 /* ---- Print ---- */
 @media print {
   .topbar, .hero-fade, .cta-primary { display: none !important; }
